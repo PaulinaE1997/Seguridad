@@ -1,13 +1,13 @@
 <?php session_start(); ?>
 <html>
 <head>
-	<title>Homepage</title>
+	<title>Principal</title>
 	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 	<div id="header">
-		Welcome to my page!
+		Gestor de proyectos
 	</div>
 	<?php
 	if(isset($_SESSION['valid'])) {			
@@ -15,9 +15,9 @@
 		$result = mysqli_query($mysqli, "SELECT * FROM login");
 	?>
 				
-		Welcome <?php echo $_SESSION['name'] ?> ! <a href='logout.php'>Logout</a><br/>
+		Hola, <?php echo $_SESSION['Nombre'] ?> ! <a href='logout.php'>Salir</a><br/>
 		<br/>
-		<a href='view.php'>View and Add Products</a>
+		<a href='view.php'>Agregar proyecto</a>
 		<br/><br/>
 	<?php	
 	} else {

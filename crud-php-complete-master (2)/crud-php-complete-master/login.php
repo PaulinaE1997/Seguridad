@@ -1,11 +1,11 @@
 <?php session_start(); ?>
 <html>
 <head>
-	<title>Login</title>
+	<title>Inciar Sesion </title>
 </head>
 
 <body>
-<a href="index.php">Home</a> <br />
+<a href="index.php">Inicio</a> <br />
 <?php
 include("connection.php");
 
