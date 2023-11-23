@@ -6,7 +6,7 @@
 </head>
 
 <body>
-	<div id="header">
+	<div ID="header">
 		Gestor de proyectos
 	</div>
 	<?php
@@ -21,11 +21,11 @@
 		<br/><br/>
 	<?php	
 	} else {
-		echo "You must be logged in to view this page.<br/><br/>";
-		echo "<a href='login.php'>Login</a> | <a href='register.php'>Register</a>";
+		echo "Tienes que iniciar sesión para observar esta pagina.<br/><br/>";
+		echo "<a href='login.php'>Login</a> | <a href='register.php'>Registrate</a>";
 	}
 	?>
-	<div id="footer">
+	<div ID="footer">
 	</div>
 </body>
 </html>

@@ -1,54 +1,70 @@
 <?php session_start(); ?>
 
 <?php
-if(!isset($_SESSION['valid'])) {
-	header('Location: login.php');
+if (!isset($_SESSION['valid'])) {
+    header('Location: login.php');
 }
 ?>
 
 <html>
 <head>
-	<title>Add Data</title>
+    <title>Agregar Datos</title>
 </head>
 
 <body>
 <?php
-//including the database connection file
+// Incluye el archivo de conexión a la base de datos
 include_once("connection.php");
 
-if(isset($_POST['Submit'])) {	
-	$name = $_POST['name'];
-	$qty = $_POST['qty'];
-	$price = $_POST['price'];
-	$loginId = $_SESSION['id'];
-		
-	// checking empty fields
-	if(empty($name) || empty($qty) || empty($price)) {
-				
-		if(empty($name)) {
-			echo "<font color='red'>Name field is empty.</font><br/>";
-		}
-		
-		if(empty($qty)) {
-			echo "<font color='red'>Quantity field is empty.</font><br/>";
-		}
-		
-		if(empty($price)) {
-			echo "<font color='red'>Price field is empty.</font><br/>";
-		}
-		
-		//link to the previous page
-		echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
-	} else { 
-		// if all the fields are filled (not empty) 
-			
-		//insert data to database	
-		$result = mysqli_query($mysqli, "INSERT INTO products(name, qty, price, login_id) VALUES('$name','$qty','$price', '$loginId')");
-		
-		//display success message
-		echo "<font color='green'>Data added successfully.";
-		echo "<br/><a href='view.php'>View Result</a>";
-	}
+if (isset($_POST['Submit'])) {
+    // Procesar la imagen
+    $imagen = $_FILES['Imagen']['name'];
+    $tempName = $_FILES['Imagen']['tmp_name'];
+    $imgPath = "uploads/" . $imagen;
+
+    move_uploaded_file($tempName, $imgPath);
+
+    // Obtener datos del formulario
+    $NombreProyecto = $_POST['NombreProyecto'];
+    $Descripcion = $_POST['Descripcion'];
+    $Departamento = $_POST['Departamento'];
+    $Fecha = $_POST['Fecha'];
+
+    // Verifica campos vacíos
+    if (empty($imagen) || empty($NombreProyecto) || empty($Descripcion) || empty($Departamento) || empty($Fecha)) {
+
+        if (empty($imagen)) {
+            echo "<font color='red'>El campo Imagen está vacío.</font><br/>";
+        }
+
+        if (empty($NombreProyecto)) {
+            echo "<font color='red'>El campo Nombre del proyecto está vacío.</font><br/>";
+        }
+
+        if (empty($Descripcion)) {
+            echo "<font color='red'>El campo Descripción está vacío.</font><br/>";
+        }
+        if (empty($Departamento)) {
+            echo "<font color='red'>El campo Departamento está vacío.</font><br/>";
+        }
+        if (empty($Fecha)) {
+            echo "<font color='red'>El campo Fecha está vacío.</font><br/>";
+        }
+        // Vincula a la página anterior
+        echo "<br/><a href='javascript:self.history.back();'>Regresar</a>";
+    } else {
+        // Si todos los campos están llenos (no vacíos)
+
+        // Inserta datos en la base de datos
+        $query = "INSERT INTO Proyectos(Imagen, NombreProyecto, Descripcion, Departamento, Fecha) VALUES(?, ?, ?, ?, ?)";
+        $params = array($imgPath, $NombreProyecto, $Descripcion, $Departamento, $Fecha);
+
+        $result = sqlsrv_query($conn, $query, $params);
+
+        // Muestra mensaje de éxito
+        echo "<font color='green'>Datos agregados exitosamente.";
+        echo "<br/><a href='view.php'>Ver Resultados</a>";
+    }
 }
 ?>
 </body>

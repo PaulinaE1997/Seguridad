@@ -7,81 +7,89 @@ if(!isset($_SESSION['valid'])) {
 ?>
 
 <?php
-// including the database connection file
+// incluyendo el archivo de conexión a la base de datos
 include_once("connection.php");
 
 if(isset($_POST['update']))
 {	
-	$id = $_POST['id'];
+	// verificando si $_POST['ID'] está definido antes de asignarlo
+	$ID = isset($_POST['ID']) ? $_POST['ID'] : null;
+
+	$NombreProyecto = $_POST['NombreProyecto'];
+    $Descripcion = $_POST['Descripcion'];
+    $Departamento = $_POST['Departamento'];
+    $Fecha = $_POST['Fecha'];
 	
-	$name = $_POST['name'];
-	$qty = $_POST['qty'];
-	$price = $_POST['price'];	
-	
-	// checking empty fields
-	if(empty($name) || empty($qty) || empty($price)) {
-				
-		if(empty($name)) {
-			echo "<font color='red'>Name field is empty.</font><br/>";
-		}
-		
-		if(empty($qty)) {
-			echo "<font color='red'>Quantity field is empty.</font><br/>";
-		}
-		
-		if(empty($price)) {
-			echo "<font color='red'>Price field is empty.</font><br/>";
-		}		
+	// verificando campos vacíos
+	if(empty($Imagen) || empty($NombreProyecto) || empty($Descripcion) || empty($Departamento) || empty($Fecha)) {
+        // código de validación y mensajes de error...
 	} else {	
-		//updating the table
-		$result = mysqli_query($mysqli, "UPDATE products SET name='$name', qty='$qty', price='$price' WHERE id=$id");
+		// actualizando la tabla
+		$params = array($NombreProyecto, $Descripcion, $Departamento, $Fecha, $ID);
+		$result = sqlsrv_query($conn, "UPDATE Proyectos SET NombreProyecto=?, Descripcion=?, Departamento=?, Fecha=? WHERE ID=?", $params);
 		
-		//redirectig to the display page. In our case, it is view.php
+		// redirigiendo a la página de visualización. En nuestro caso, es view.php
 		header("Location: view.php");
 	}
+
+	
 }
 ?>
 <?php
-//getting id from url
-$id = $_GET['id'];
+// obteniendo el id desde la URL
+$ID = isset($_GET['ID']) ? $_GET['ID'] : null;
 
-//selecting data associated with this particular id
-$result = mysqli_query($mysqli, "SELECT * FROM products WHERE id=$id");
+// seleccionando datos asociados a este id particular
+$params = array($ID);
+$result = sqlsrv_query($conn, "SELECT * FROM Proyectos WHERE ID=?", $params);
 
-while($res = mysqli_fetch_array($result))
+while($res = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
 {
-	$name = $res['name'];
-	$qty = $res['qty'];
-	$price = $res['price'];
+	$Imagen = $res['Imagen'];
+	$NombreProyecto = $res['NombreProyecto'];
+	$Descripcion = $res['Descripcion'];
+	$Departamento = $res['Departamento'];
+	$Fecha = $res['Fecha'];
 }
 ?>
 <html>
 <head>	
-	<title>Edit Data</title>
+	<title>Editar Datos</title>
 </head>
 
 <body>
-	<a href="index.php">Home</a> | <a href="view.php">View Products</a> | <a href="logout.php">Logout</a>
+	<a href="index.php">Inicio</a> | <a href="view.php">Ver Proyectos</a> | <a href="logout.php">Cerrar Sesión</a>
 	<br/><br/>
 	
 	<form name="form1" method="post" action="edit.php">
 		<table border="0">
-			<tr> 
-				<td>Name</td>
-				<td><input type="text" name="name" value="<?php echo $name;?>"></td>
-			</tr>
-			<tr> 
-				<td>Quantity</td>
-				<td><input type="text" name="qty" value="<?php echo $qty;?>"></td>
-			</tr>
-			<tr> 
-				<td>Price</td>
-				<td><input type="text" name="price" value="<?php echo $price;?>"></td>
-			</tr>
-			<tr>
-				<td><input type="hidden" name="id" value=<?php echo $_GET['id'];?>></td>
-				<td><input type="submit" name="update" value="Update"></td>
-			</tr>
+		<tr> 
+                <td>Imagen</td>
+                <td><input type="file" name="Imagen"></td>
+            </tr>
+            <tr> 
+                <td>Nombre del proyecto</td>
+                <td><input type="text" name="NombreProyecto" value="<?php echo $NombreProyecto; ?>"></td>
+            </tr>
+            <tr> 
+                <td>Descripción</td>
+                <td><input type="text" name="Descripcion" value="<?php echo $Descripcion; ?>"></td>
+            </tr>
+            <tr> 
+                <td>Departamento</td>
+                <td><input type="text" name="Departamento" value="<?php echo $Departamento; ?>"></td>
+            </tr>
+            <tr> 
+                <td>Fecha</td>
+                <td><input type="date" name="Fecha" value="<?php echo $Fecha; ?>"></td>
+            </tr>
+            <tr> 
+                <td></td>
+                <td>
+                    <input type="hidden" name="ID" value="<?php echo $ID; ?>">
+                    <input type="submit" name="update" value="Actualizar">
+                </td>
+            </tr>
 		</table>
 	</form>
 </body>
