@@ -79,7 +79,7 @@ if ($ID !== null) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Sans-Serif';
+            font-family: 'Sans-Serif', sans-serif; /* Cambiado a Sans Serif */
             background-color: #f8d7da;
             padding: 20px;
         }

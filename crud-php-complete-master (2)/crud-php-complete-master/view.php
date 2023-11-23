@@ -24,7 +24,7 @@ $result = sqlsrv_query($conn, "SELECT * FROM Proyectos");
     
     <style>
         body {
-            font-family: 'Sans-Serif';
+            font-family: 'Sans-Serif', sans-serif; /* Cambiado a Sans Serif */
             background-color: #f8d7da; /* Fondo rosita */
             padding: 20px;
         }

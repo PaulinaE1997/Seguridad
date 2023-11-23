@@ -15,7 +15,7 @@ if (!isset($_SESSION['valid'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Sans-Serif';
+            font-family: 'Sans-Serif', sans-serif; /* Cambiado a Sans Serif */
             background-color: #f8d7da; /* Fondo rosita */
             padding: 20px;
         }
@@ -23,7 +23,7 @@ if (!isset($_SESSION['valid'])) {
         #form-container {
             max-width: 600px;
             margin: auto;
-            background-color: #ffffff; /* Fondo blanco */
+            font-family: 'Sans-Serif', sans-serif; /* Cambiado a Sans Serif */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
