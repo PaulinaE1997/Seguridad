@@ -1,40 +1,71 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Agregar proyectos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Proyectos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Sans-Serif';
+            background-color: #f8d7da; /* Fondo rosita */
+            padding: 20px;
+        }
+
+        a {
+            margin-right: 10px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background-color: #ffffff; /* Fondo blanco */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545; /* Rojo oscuro */
+            color: #fff; /* Texto blanco */
+        }
+    </style>
 </head>
 
 <body>
-    <a href="index.php">Inicio</a> | <a href="view.php">Ver Proyectos</a> | <a href="logout.php">Salir</a>
+    <a href="index.php" class="btn btn-secondary">Inicio</a>
+    <a href="view.php" class="btn btn-secondary">Ver Proyectos</a>
+    <a href="logout.php" class="btn btn-secondary">Salir</a>
     <br/><br/>
 
     <form action="add.php" method="post" name="form1" enctype="multipart/form-data">
-        <table width="25%" border="0">
-            <tr> 
-                <td>Imagen</td>
-                <td><input type="file" name="Imagen"></td>
-            </tr>
-            <tr> 
-                <td>Nombre del proyecto</td>
-                <td><input type="text" name="NombreProyecto"></td>
-            </tr>
-            <tr> 
-                <td>Descripción</td>
-                <td><input type="text" name="Descripcion"></td>
-            </tr>
-            <tr> 
-                <td>Departamento</td>
-                <td><input type="text" name="Departamento"></td>
-            </tr>
-            <tr> 
-                <td>Fecha</td>
-                <td><input type="date" name="Fecha"></td>
-            </tr>
-            <tr> 
-                <td></td>
-                <td><input type="submit" name="Submit" value="Agregar"></td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="Imagen">Imagen</label>
+            <input type="file" name="Imagen" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="NombreProyecto">Nombre del Proyecto</label>
+            <input type="text" name="NombreProyecto" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Descripcion">Descripción</label>
+            <input type="text" name="Descripcion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Departamento">Departamento</label>
+            <input type="text" name="Departamento" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Fecha">Fecha</label>
+            <input type="date" name="Fecha" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" name="Submit" value="Agregar" class="btn btn-primary">
+        </div>
     </form>
 </body>
 </html>
-

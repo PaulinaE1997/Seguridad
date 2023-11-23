@@ -12,31 +12,69 @@ include_once("connection.php");
 
 // Recupera datos en orden descendente (última entrada primero)
 $result = sqlsrv_query($conn, "SELECT * FROM Proyectos");
-
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            font-family: 'Sans-Serif';
+            background-color: #f8d7da; /* Fondo rosita */
+            padding: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #dc3545; /* Rojo oscuro */
+            color: #fff; /* Texto blanco */
+        }
+
+        a {
+            color: #dc3545; /* Rojo oscuro */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <a href="index.php">Inicio</a> | <a href="add.html">Agregar Nuevo</a> | <a href="logout.php">Cerrar Sesión</a>
     <br/><br/>
 
-    <table width='80%' border=0>
-        <tr bgcolor='#CCCCCC'>
-			<td>ID</td>
-            <td>Imagen</td>
-            <td>Nombre del Proyecto</td>
-            <td>Descripción</td>
-            <td>Departamento</td>
-            <td>Fecha</td>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Nombre del Proyecto</th>
+            <th>Descripción</th>
+            <th>Departamento</th>
+            <th>Fecha</th>
+            <th>Acciones</th> <!-- Agregada una columna para acciones -->
         </tr>
+
         <?php
         while ($res = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
             echo "<tr>";
             // Mostrar la imagen en miniatura
+
+            echo "<td>" . $res['ID'] . "</td>";
             echo "<td><img src='{$res['Imagen']}' width='50' height='50'></td>";
             echo "<td>" . $res['NombreProyecto'] . "</td>";
             echo "<td>" . $res['Descripcion'] . "</td>";
@@ -50,9 +88,18 @@ $result = sqlsrv_query($conn, "SELECT * FROM Proyectos");
             $editLink = isset($res['ID']) ? "edit.php?ID={$res['ID']}" : '#';
             $deleteLink = isset($res['ID']) ? "delete.php?ID={$res['ID']}" : '#';
 
-            echo "<td><a href=\"$editLink\">Editar</a> | <a href=\"$deleteLink\" onClick=\"return confirm('¿Estás seguro de que quieres eliminar?')\">Eliminar</a></td>";
+            // Usar iconos de Bootstrap en lugar de texto
+            echo "<td>
+                    <a href=\"$editLink\" class=\"btn btn-warning\"><i class=\"bi bi-pencil\"></i></a>
+                    <a href=\"$deleteLink\" class=\"btn btn-danger\" onClick=\"return confirm('¿Estás seguro de que quieres eliminar?')\"><i class=\"bi bi-trash\"></i></a>
+                  </td>";
         }
         ?>
     </table>
+
+    <!-- Incluir script de Bootstrap para los iconos -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
